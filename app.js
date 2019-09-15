@@ -12,4 +12,13 @@ $.ajax({
 
     console.log(response);
     console.log(response.data[0].images.downsized);
+
+    var myImage = $('<img>');
+
+    var myImageURL = response.data[0].images.original.url;
+    myImage.attr("src", myImageURL);
+    myImage.attr("alt", "phelps image");
+
+    $('.images').append(myImage);
+
 });
