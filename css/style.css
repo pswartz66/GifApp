@@ -9,3 +9,16 @@
 .success-btn {
     margin-top: 12px;
 }
+
+
+.button-list {
+    margin-top: 6px;
+    
+}
+
+.button-color {
+    background-color: rgb(91, 187, 187);
+    margin-top: 4px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+}
