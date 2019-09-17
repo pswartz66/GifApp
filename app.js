@@ -2,7 +2,6 @@
 
 var API_Key = "4JhZrt5joIBhUY2fA3kMRtug4WWhJ13G";
 
-var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+API_Key+"&q=Michael+Phelps&limit=2&offset=0&rating=G&lang=en"
 
 
 var gif_categories = ['basketball', 'bike', 'cooking', 'summer', 'rollercoaster',
@@ -15,7 +14,7 @@ for (var i = 0; i < gif_categories.length; i++) {
 
     var button = $("<button>");
 
-    button.addClass("button-color");
+    button.addClass("gifButton");
 
     button.attr("gif-button", gif_categories[i]);
 
@@ -42,35 +41,50 @@ $("#search-btn").on('click', function(){
         console.log(gif_categories);
 
         var newButton = $("<button>");
-        newButton.addClass("button-color");
+        newButton.addClass("gifButton");
         newButton.attr("gif-button", input_text);
         newButton.text(input_text);
         $(".button-list").append(newButton);
 
     }
-    
+
+
     $("#search-term").val("");
     
 
 })
 
+$('.gifButton').on('click', function(){
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response) {
+    var clickedButton = $(this).text();
 
-    // console.log(response);
-    // console.log(response.data[0].images.downsized);
+    console.log(clickedButton);
 
-    var myImage = $('<img>');
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+API_Key+"&q="+clickedButton+"&limit=2&offset=0&rating=G&lang=en"
 
-    var myImageURL = response.data[0].images.original_still.url;
-    myImage.attr("src", myImageURL);
-    myImage.attr("alt", "phelps image");
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
 
-    $('.images').append(myImage);
+        // console.log(response);
+        // console.log(response.data[0].images.downsized);
+
+        var myImage = $('<img>');
+
+        var myImageURL = response.data[0].images.original_still.url;
+        myImage.attr("src", myImageURL);
+        myImage.attr("alt", clickedButton + " image");
+
+        $('.images').append(myImage);
+
+    });
+
+
 
 });
+
+
+
 
 
