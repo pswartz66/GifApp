@@ -66,7 +66,8 @@ $("#add-btn").on('click', function(){
     
 });
 
-$('.gifButton').on('click', function(){
+function showGif(){
+
     event.preventDefault();
 
     var clickedButton = $(this).text();
@@ -94,9 +95,9 @@ $('.gifButton').on('click', function(){
     });
 
 
+}
 
-});
-
+$(document).on('click', '.gifButton', showGif)
 
 
 
