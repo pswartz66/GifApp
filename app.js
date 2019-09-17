@@ -9,27 +9,38 @@ var gif_categories = ['basketball', 'bike', 'cooking', 'summer', 'rollercoaster'
 
 
 
+// initial loop for gif categories
 
-for (var i = 0; i < gif_categories.length; i++) {
+function DisplayGIFCategories(){
 
-    var button = $("<button>");
+    for (var i = 0; i < gif_categories.length; i++) {
 
-    button.addClass("gifButton");
-
-    button.attr("gif-button", gif_categories[i]);
-
-    button.text(gif_categories[i]);
-
-    $(".button-list").append(button);
+        var button = $("<button>");
+    
+        button.addClass("gifButton");
+    
+        button.attr("gif-button", gif_categories[i]);
+    
+        button.text(gif_categories[i]);
+    
+        $(".button-list").append(button);
+    
+    }
 
 }
 
+DisplayGIFCategories();
 
-$("#search-btn").on('click', function(){
+$("#add-btn").on('click', function(){
 
-    event.preventDefault();
+    // event.preventDefault();
 
-    var input_text = $('#search-term').val().trim();
+    console.log('clicked');
+
+    $('.button-list').empty();
+
+
+    var input_text = $('#add-term').val().trim();
 
 
     if (input_text !== "" && gif_categories.includes(input_text) !== true) {
@@ -40,21 +51,23 @@ $("#search-btn").on('click', function(){
 
         console.log(gif_categories);
 
-        var newButton = $("<button>");
-        newButton.addClass("gifButton");
-        newButton.attr("gif-button", input_text);
-        newButton.text(input_text);
-        $(".button-list").append(newButton);
+        DisplayGIFCategories();
 
     }
 
+    else {
 
-    $("#search-term").val("");
+        DisplayGIFCategories();
+
+        $("#add-term").val("");
+
+    }
+
     
-
-})
+});
 
 $('.gifButton').on('click', function(){
+    event.preventDefault();
 
     var clickedButton = $(this).text();
 
