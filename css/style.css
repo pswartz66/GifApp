@@ -27,3 +27,11 @@
 .gifButton:hover {
     background-color: #456079;
 }
+
+.gif-image {
+    margin: 4px;
+    text-align: center;
+    height: 210px;
+    width: 222px;
+    
+}
