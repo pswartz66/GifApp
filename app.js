@@ -53,6 +53,8 @@ $("#add-btn").on('click', function(){
 
         DisplayGIFCategories();
 
+        $("#add-term").val("");
+
     }
 
     else {
@@ -72,32 +74,63 @@ function showGif(){
 
     var clickedButton = $(this).text();
 
-    console.log(clickedButton);
-
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+API_Key+"&q="+clickedButton+"&limit=2&offset=0&rating=G&lang=en"
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+API_Key+"&q="+clickedButton+"&limit=5&offset=0&rating=G&lang=en"
 
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
 
-        // console.log(response);
+        console.log(response);
         // console.log(response.data[0].images.downsized);
 
-        var myImage = $('<img>');
 
-        var myImageURL = response.data[0].images.original_still.url;
-        myImage.attr("src", myImageURL);
-        myImage.attr("alt", clickedButton + " image");
+        for (var i = 0; i < 5; i++) {
 
-        $('.images').append(myImage);
+            var myImage = $('<img>');
 
+            var myImageURL_Still = response.data[i].images.original_still.url;
+            var myImageURL_Loop = response.data[i].images.original.url;
+
+            myImage.attr("src", myImageURL_Still);
+            myImage.attr("data-still", myImageURL_Still);
+            myImage.attr("data-loop", myImageURL_Loop);
+            myImage.attr("data-state", "still");
+
+            myImage.attr("class", "gif-image");
+
+            $('.images').append(myImage);
+
+            console.log(response.data[i].images.original_still.url);
+
+        }
+
+        
+        
     });
-
 
 }
 
+
+    function getState() {
+        $(".gif-image").on('click', function() {
+            var state = $(this).attr("data-state");
+
+            if (state === 'still') {
+                $(this).attr('src', $(this).attr('data-loop'));
+                $(this).attr('data-state', 'loop')
+            } else {
+                $(this).attr('src', $(this).attr('data-still'));
+                $(this).attr('data-state', 'still');
+            }
+
+
+        });
+    };
+
 $(document).on('click', '.gifButton', showGif)
+
+$(document).on('click', '.gif-image', getState)
 
 
 
